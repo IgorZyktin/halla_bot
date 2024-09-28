@@ -1,0 +1,36 @@
+[project]
+name = "halla-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aiosqlite>=0.20.0",
+    "alembic[tz]>=1.13.3",
+    "loguru>=0.7.2",
+    "pydantic-settings>=2.5.2",
+    "python-telegram-bot>=21.6",
+    "pytz>=2024.2",
+    "sqlalchemy[mypy]>=2.0.35",
+    "tzdata>=2024.2",
+    "ujson>=5.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.11.2",
+    "ruff>=0.6.8",
+    "types-ujson>=5.10.0.20240515",
+    "types-pytz>=2024.2.0.20240913",
+]
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.format]
+quote-style = "single"
+
+[too.mypy]
+plugins = [
+    'sqlalchemy.ext.mypy.plugin'
+]
