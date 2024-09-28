@@ -1,2 +1,3 @@
-# halla_bot
-Halla LLM bot for telegram
+# Halla LLM Bot
+
+Маленький бот для проксирования запросов из локальной `LLM` в `Telegram`.
