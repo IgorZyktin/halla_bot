@@ -7,14 +7,14 @@ from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler
 from telegram.ext import filters
 
-from halla_bot import const
+from halla_bot import cfg
 from halla_bot import handlers
 
 
 def main() -> None:
     """Точка входа."""
     logger.warning('Бот начал работу')
-    token = const.CONF.token.get_secret_value()
+    token = cfg.CONF.token.get_secret_value()
     application = Application.builder().token(token).build()
 
     start_handler = CommandHandler('start', handlers.start)

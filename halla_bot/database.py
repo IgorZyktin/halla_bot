@@ -10,7 +10,7 @@ from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from halla_bot import const
+from halla_bot import cfg
 from halla_bot import db_models
 from halla_bot import models
 
@@ -99,7 +99,7 @@ class Database:
         """
         _datetime = payload['created_at'][:26] + '+00:00'
         read_datetime = datetime.fromisoformat(_datetime).astimezone(
-            pytz.timezone(const.CONF.timezone)
+            pytz.timezone(cfg.CONF.timezone)
         )
 
         query_responses = insert(db_models.Response).values(
