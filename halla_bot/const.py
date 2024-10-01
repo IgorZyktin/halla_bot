@@ -15,9 +15,9 @@ class Config(BaseSettings):
 
     token: SecretStr
     api_url: str
-    request_limit: int = 20
+    request_limit: int = 50
     request_timeout: int = 600
-    prompt_limit: int = 1000
+    prompt_limit: int = 10_000
     model: str = 'llama3.1:8B'
     mood: Literal['aggressive', 'restrictive', 'permissive'] = 'permissive'
     db_path: str = '../halla_bot.db'
