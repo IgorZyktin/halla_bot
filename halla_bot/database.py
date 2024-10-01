@@ -140,6 +140,13 @@ class Database:
 
         async with self.engine.begin() as conn:
             response = (await conn.execute(query)).first()
+
+            if response is None:
+                return models.Info(
+                    responses=0,
+                    tps=0,
+                )
+
             responses, total, duration = response
 
         return models.Info(
