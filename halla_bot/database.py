@@ -37,6 +37,7 @@ class Database:
                     full_name='',
                     role='anon',
                     responses_today=0,
+                    gender=None,
                 )
             else:
                 user = models.User(
@@ -44,6 +45,7 @@ class Database:
                     name=response.name,
                     full_name=response.full_name,
                     role=response.role,
+                    gender=response.gender,
                     responses_today=0,
                 )
 

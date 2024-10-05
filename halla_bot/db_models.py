@@ -2,6 +2,7 @@
 
 import enum
 
+from sqlalchemy import Boolean
 from sqlalchemy import Float
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
@@ -31,6 +32,7 @@ class User(Base):
     name: Mapped[str] = mapped_column(String, nullable=True)
     full_name: Mapped[str] = mapped_column(String, nullable=True)
     role: Mapped[Role] = mapped_column(String, nullable=False)
+    gender: Mapped[bool] = mapped_column(Boolean, nullable=True)
 
 
 class Response(Base):

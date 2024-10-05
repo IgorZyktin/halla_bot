@@ -13,6 +13,11 @@ class User(BaseModel):
     full_name: str | None
     role: Literal['admin', 'user', 'anon']
     responses_today: int
+    gender: bool
+
+    def is_male(self) -> bool:
+        """Вернуть True если пользователь - мужчина."""
+        return self.gender or self.gender is None
 
 
 class Info(BaseModel):

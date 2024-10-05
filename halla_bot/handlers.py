@@ -77,8 +77,9 @@ async def generate(
 
     if user.role == 'anon':
         if cfg.CONF.mood == 'aggressive':
+            # анонимус по умолчанию считается мужчиной
             await update.message.reply_text(
-                'Молодой человек, я вас не знаю. Уходите.'
+                'Молодой человек, я вас не знаю. Пойдите прочь.'
             )
             return
 
@@ -93,8 +94,14 @@ async def generate(
             return
 
     if len(prompt) > cfg.CONF.prompt_limit:
+        if user.is_male():
+            prefix = 'Дорогой'
+        else:
+            prefix = 'Милочка'
+
         await update.message.reply_text(
-            'Ой, ну что то слишком много букв, ' 'давай покороче как-нибудь...'
+            f'{prefix}, ну что-то слишком много букв, '
+            f'давай покороче как-нибудь...'
         )
         return
 
