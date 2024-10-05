@@ -1,5 +1,7 @@
 """Тут обработчики сообщений."""
 
+from datetime import datetime
+
 import httpx
 from loguru import logger
 from telegram import Update
@@ -58,6 +60,8 @@ async def info(
     _info = await cfg.DB.get_info()
 
     text = (
+        f'Текущая модель: {cfg.CONF.model}\n'
+        f'Настрой бота: {cfg.CONF.mood}\n'
         f'Ответов сегодня: {_info.responses}\n'
         f'Токенов в секунду: {_info.tps:.3f}'
     )
@@ -79,7 +83,7 @@ async def generate(
         if cfg.CONF.mood == 'aggressive':
             # анонимус по умолчанию считается мужчиной
             await update.message.reply_text(
-                'Молодой человек, я вас не знаю. Пойдите прочь.'
+                'Молодой человек, я вас не знаю. Пойдите прочь!'
             )
             return
 
@@ -89,21 +93,31 @@ async def generate(
         ):
             await update.message.reply_text(
                 'Ты задаешь слишком много вопросов. '
-                'Лавочка закрывается. Приходи завтра.'
+                'Лавочка закрывается. Приходи завтра!'
             )
             return
 
-    if len(prompt) > cfg.CONF.prompt_limit:
-        if user.is_male():
-            prefix = 'Дорогой'
-        else:
-            prefix = 'Милочка'
+    if user.is_male():
+        prefix = 'Дорогой'
+    else:
+        prefix = 'Милочка'
 
+    if len(prompt) > cfg.CONF.prompt_limit:
         await update.message.reply_text(
             f'{prefix}, ну что-то слишком много букв, '
-            f'давай покороче как-нибудь...'
+            f'давай покороче как-нибудь!'
         )
         return
+
+    now = datetime.now()
+    if user.last_response is not None:
+        delta = (now - user.last_response).total_seconds()
+        if delta < cfg.CONF.cooldown:
+            await update.message.reply_text(
+                f'{prefix}, ну что ты строчишь, '
+                f'давай не так быстро, дай мне подумать!'
+            )
+            return
 
     data = {
         'model': cfg.CONF.model,

@@ -1,5 +1,6 @@
 """Тут модели предметной области."""
 
+from datetime import datetime
 from typing import Literal
 
 from pydantic import BaseModel
@@ -14,6 +15,7 @@ class User(BaseModel):
     role: Literal['admin', 'user', 'anon']
     responses_today: int
     gender: bool
+    last_response: datetime | None
 
     def is_male(self) -> bool:
         """Вернуть True если пользователь - мужчина."""

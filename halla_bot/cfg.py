@@ -23,6 +23,7 @@ class Config(BaseSettings):
     db_path: str = '../halla_bot.db'
     log_path: str = '../halla_bot.log'
     timezone: str = 'Europe/Moscow'
+    cooldown: float = 5.0
 
     model_config = SettingsConfigDict(
         env_prefix='HALLA_BOT__',

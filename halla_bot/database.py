@@ -6,6 +6,7 @@ from typing import Any
 import pytz
 import ujson
 from sqlalchemy import func
+from sqlalchemy import desc
 from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import create_async_engine
@@ -38,6 +39,7 @@ class Database:
                     role='anon',
                     responses_today=0,
                     gender=None,
+                    last_response=None,
                 )
             else:
                 user = models.User(
@@ -47,6 +49,7 @@ class Database:
                     role=response.role,
                     gender=response.gender,
                     responses_today=0,
+                    last_response=None,
                 )
 
             today = datetime.now().date().isoformat()
@@ -57,6 +60,22 @@ class Database:
             )
             response = await conn.execute(count_query)
             user.responses_today = response.scalar()
+
+            last_request = (
+                select(db_models.Response.date + ' ' + db_models.Response.time)
+                .where(
+                    db_models.Response.user_id == user_id,
+                )
+                .order_by(desc(db_models.Response.date))
+                .order_by(desc(db_models.Response.time))
+                .limit(1)
+            )
+
+            response = await conn.execute(last_request)
+            text_dt = response.scalar()
+
+            if text_dt is not None:
+                user.last_response = datetime.fromisoformat(text_dt)
 
         return user
 
