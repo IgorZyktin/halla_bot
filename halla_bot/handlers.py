@@ -67,7 +67,7 @@ async def info(
         f'Токенов в секунду: {_info.tps:.3f}'
     )
 
-    await update.message.reply_text(text)
+    await update.message.reply_text(text, reply_markup=None)
 
 
 @utls.extract_user
