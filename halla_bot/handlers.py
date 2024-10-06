@@ -1,6 +1,5 @@
 """Тут обработчики сообщений."""
 
-import http
 from datetime import datetime
 
 import httpx
@@ -136,21 +135,6 @@ async def generate(
         chat_id=update.message.chat_id,
         action=ChatAction.TYPING,
     )
-
-    text_on_absent = f'{prefix}, зайди позже, сейчас без тебя дел хватает.'
-
-    try:
-        r = httpx.options(
-            cfg.CONF.api_url,
-            timeout=1.0,
-        )
-    except Exception:
-        logger.exception('Не удалось проверить доступность API')
-        await update.message.reply_text(text_on_absent)
-        return
-
-    if r.status_code != http.HTTPStatus.NO_CONTENT:
-        await update.message.reply_text(text_on_absent)
 
     try:
         r = httpx.post(
