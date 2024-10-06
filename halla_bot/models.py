@@ -14,7 +14,7 @@ class User(BaseModel):
     full_name: str | None
     role: Literal['admin', 'user', 'anon']
     responses_today: int
-    gender: bool
+    gender: bool | None
     model: str | None
     last_response: datetime | None
 

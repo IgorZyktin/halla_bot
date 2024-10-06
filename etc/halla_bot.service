@@ -6,7 +6,7 @@ After=network.target
 User=halla_bot
 WorkingDirectory=/home/halla_bot/halla_bot
 EnvironmentFile=/etc/halla_bot/env
-ExecStart="${HALLA_BOT__VENV} -m halla_bot"
+ExecStart="<путь до интерпретатора> -m halla_bot"
 
 [Install]
 WantedBy=multi-user.target

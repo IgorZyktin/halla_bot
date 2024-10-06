@@ -11,10 +11,9 @@
 Содержимое:
 
 ```shell
-HALLA_BOT__VENV=/home/halla_bot/halla_bot/.venv/bin/python3
 HALLA_BOT__TOKEN=<токен для бота>
 HALLA_BOT__API_URL=<url до машины, на которой фактически исполняется нейросеть>
-HALLA_BOT__DB_PATH=/home/halla_bot/halla_bot.db
+HALLA_BOT__DB_PATH=sqlite+aiosqlite:////home/halla_bot/halla_bot/halla_bot.db
 HALLA_BOT__LOG_PATH=/var/log/halla_bot.log
 ```
 
