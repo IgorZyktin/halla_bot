@@ -142,7 +142,7 @@ async def generate(
     try:
         r = httpx.options(
             cfg.CONF.api_url,
-            timeout=cfg.CONF.request_timeout,
+            timeout=1.0,
         )
     except Exception:
         logger.exception('Не удалось проверить доступность API')
