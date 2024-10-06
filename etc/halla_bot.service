@@ -1,0 +1,12 @@
+[Unit]
+Description=Halla telegram bot
+After=network.target
+
+[Service]
+User=halla_bot
+WorkingDirectory=/home/halla_bot/halla_bot
+EnvironmentFile=/etc/halla_bot/env
+ExecStart="${HALLA_BOT__VENV} -m halla_bot"
+
+[Install]
+WantedBy=multi-user.target
