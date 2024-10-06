@@ -15,6 +15,7 @@ class User(BaseModel):
     role: Literal['admin', 'user', 'anon']
     responses_today: int
     gender: bool
+    model: str | None
     last_response: datetime | None
 
     def is_male(self) -> bool:

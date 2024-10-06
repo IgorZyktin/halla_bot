@@ -39,6 +39,7 @@ class Database:
                     role='anon',
                     responses_today=0,
                     gender=None,
+                    model=None,
                     last_response=None,
                 )
             else:
@@ -48,6 +49,7 @@ class Database:
                     full_name=response.full_name,
                     role=response.role,
                     gender=response.gender,
+                    model=response.model,
                     responses_today=0,
                     last_response=None,
                 )

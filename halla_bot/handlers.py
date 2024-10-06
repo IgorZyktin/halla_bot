@@ -121,7 +121,7 @@ async def generate(
             return
 
     data = {
-        'model': cfg.CONF.model,
+        'model': user.model or cfg.CONF.model,
         'prompt': prompt,
         'stream': False,
     }
