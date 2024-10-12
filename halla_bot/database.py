@@ -3,7 +3,6 @@
 from datetime import datetime
 from typing import Any
 
-import pytz
 import ujson
 from sqlalchemy import func
 from sqlalchemy import desc
@@ -11,7 +10,6 @@ from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from halla_bot import cfg
 from halla_bot import db_models
 from halla_bot import models
 
@@ -100,6 +98,7 @@ class Database:
         self,
         user: models.User,
         payload: dict[str, Any],
+        now: datetime,
     ) -> None:
         """Обновляем статистику для пользователя.
 
@@ -120,15 +119,10 @@ class Database:
             'eval_duration': 197857000б
         }
         """
-        _datetime = payload['created_at'][:26] + '+00:00'
-        read_datetime = datetime.fromisoformat(_datetime).astimezone(
-            pytz.timezone(cfg.CONF.timezone)
-        )
-
         query_responses = insert(db_models.Response).values(
             user_id=user.id,
-            date=read_datetime.date().isoformat(),
-            time=read_datetime.time().isoformat(),
+            date=now.date().isoformat(),
+            time=now.time().isoformat(),
             tokens=payload['prompt_eval_count'],
             duration=payload['total_duration'] / 10**9,
         )

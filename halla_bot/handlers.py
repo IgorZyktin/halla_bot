@@ -130,6 +130,8 @@ async def generate(
     if previous_context:
         data['context'] = previous_context
 
+    now = datetime.now()
+
     # делаем вид, что бот печатает, чтобы пользователь был спокойнее
     await context.bot.send_chat_action(
         chat_id=update.message.chat_id,
@@ -153,5 +155,5 @@ async def generate(
         await update.message.reply_text(text)
         return
 
-    await cfg.DB.store_response(user, payload)
+    await cfg.DB.store_response(user, payload, now)
     await update.message.reply_text(payload['response'])

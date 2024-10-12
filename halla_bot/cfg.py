@@ -22,7 +22,6 @@ class Config(BaseSettings):
     mood: Literal['aggressive', 'restrictive', 'permissive'] = 'permissive'
     db_path: str = '../halla_bot.db'
     log_path: str = '../halla_bot.log'
-    timezone: str = 'Europe/Moscow'
     cooldown: float = 3.0
 
     model_config = SettingsConfigDict(
